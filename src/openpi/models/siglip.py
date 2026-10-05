@@ -309,6 +309,7 @@ def decode_variant(variant):
         # pylint:disable=line-too-long
         # Reference: Table 2 of https://arxiv.org/abs/2106.04560.
         "width": {
+            "nano": 8,
             "mu": 32,
             "Ti": 192,
             "S": 384,
@@ -324,6 +325,7 @@ def decode_variant(variant):
             "e": 1792,
         }[v],
         "depth": {
+            "nano": 1,
             "mu": 1,
             "Ti": 12,
             "S": 12,
@@ -339,6 +341,7 @@ def decode_variant(variant):
             "e": 56,
         }[v],
         "mlp_dim": {
+            "nano": 8,
             "mu": 128,
             "Ti": 768,
             "S": 1536,
@@ -354,6 +357,7 @@ def decode_variant(variant):
             "e": 15360,
         }[v],
         "num_heads": {
+            "nano": 2,
             "mu": 2,
             "Ti": 3,
             "S": 6,

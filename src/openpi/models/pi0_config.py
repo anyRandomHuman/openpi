@@ -20,6 +20,7 @@ class Pi0Config(_model.BaseModelConfig):
     dtype: str = "bfloat16"
     paligemma_variant: _gemma.Variant = "gemma_2b"
     action_expert_variant: _gemma.Variant = "gemma_300m"
+    vision_variant: str = "So400m/14"
 
     # Set the model specific defaults.
     action_dim: int = 32

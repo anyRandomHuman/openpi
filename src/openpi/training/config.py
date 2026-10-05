@@ -65,6 +65,8 @@ class AssetsConfig:
 class DataConfig:
     # LeRobot repo id. If None, fake data will be created.
     repo_id: str | None = None
+    # Number of examples in the synthetic dataset. Ignored for real datasets.
+    fake_num_samples: int = 1024
     # Directory within the assets directory containing the data assets.
     asset_id: str | None = None
     # Contains precomputed normalization stats. If None, normalization will not be performed.
@@ -203,10 +205,11 @@ class DataConfigFactory(abc.ABC):
 @dataclasses.dataclass(frozen=True)
 class FakeDataConfig(DataConfigFactory):
     repo_id: str = "fake"
+    num_samples: int = 1024
 
     @override
     def create(self, assets_dirs: pathlib.Path, model_config: _model.BaseModelConfig) -> DataConfig:
-        return DataConfig(repo_id=self.repo_id)
+        return DataConfig(repo_id=self.repo_id, fake_num_samples=self.num_samples)
 
 
 @dataclasses.dataclass(frozen=True)

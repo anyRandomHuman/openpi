@@ -56,6 +56,16 @@ NOTE: `GIT_LFS_SKIP_SMUDGE=1` is needed to pull LeRobot as a dependency.
 
 
 
+## Small CPU smoke run
+
+To exercise the training pipeline without downloading a dataset or checkpoint, run:
+
+```bash
+uv run scripts/train_tiny.py
+```
+
+This uses a randomly initialized π₀ model with width 8 in its language, action, and vision blocks, 16 synthetic examples, a batch size of 1, and one training step. It runs on CPU and deletes its temporary checkpoint when done. Use `--steps N --samples N` to adjust the run; the sample count must stay below 100. This is a pipeline check, not a useful trained policy.
+
 ## Model Checkpoints
 
 ### Base Models

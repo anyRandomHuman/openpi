@@ -49,14 +49,17 @@ class Config:
     num_heads: int
     num_kv_heads: int
     head_dim: int
+    vocab_size: int = PALIGEMMA_VOCAB_SIZE
     lora_configs: dict[str, lora.LoRAConfig] = dataclasses.field(default_factory=dict)
 
 
-Variant = Literal["dummy", "gemma_300m", "gemma_300m_lora", "gemma_2b", "gemma_2b_lora"]
+Variant = Literal["tiny", "dummy", "gemma_300m", "gemma_300m_lora", "gemma_2b", "gemma_2b_lora"]
 
 
 def get_config(variant: Variant) -> Config:
     """Returns config for specified gemma variant."""
+    if variant == "tiny":
+        return Config(width=8, depth=1, mlp_dim=8, num_heads=2, num_kv_heads=1, head_dim=4, vocab_size=2048)
     if variant == "dummy":
         return Config(
             width=64,
@@ -352,7 +355,7 @@ class Module(nn.Module):
         assert all(config.depth == self.configs[0].depth for config in self.configs)
 
         self.embedder = Embedder(
-            vocab_size=PALIGEMMA_VOCAB_SIZE,
+            vocab_size=self.configs[0].vocab_size,
             embed_dim=self.configs[0].width,  # embedder for first expert only
             name="embedder",
         )
